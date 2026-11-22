@@ -6,5 +6,11 @@ jobs:
   saludo:
     runs-on: ubuntu-latest
     steps:
+      - name: Traer el codigo
+        uses: actions/checkout@v4
+
+      - name: Ver los archivos
+        run: ls -la
+
       - name: Decir hola
-        run: echo "Hola desde GitHub Actions"
+        run: echo "Hola desde github"
