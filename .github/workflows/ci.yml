@@ -34,3 +34,6 @@ jobs:
 
       - name: Subir la imagen
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/mi-imagen:latest
+
+      - name: Correr pruebas
+        run: python3 test_suma.py
