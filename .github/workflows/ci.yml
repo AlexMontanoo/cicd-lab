@@ -20,3 +20,6 @@ jobs:
 
       - name: Contruir la imagen
         run: docker build -t mi-imagen .
+
+      - name: Correr el contenedor
+        run: docker run mi-imagen
