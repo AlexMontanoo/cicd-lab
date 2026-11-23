@@ -17,3 +17,6 @@ jobs:
 
       - name: Leer archivo que no existe
         run: cat d.txt
+
+      - name: Contruir la imagen
+        run: docker build -t mi-imagen .
