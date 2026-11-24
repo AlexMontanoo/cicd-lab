@@ -2,9 +2,9 @@ name: Mi primer workflow
 
 on:
   push:
-    branches:[main]
-    pull_request:
-    workflow_dispatch:
+    branches: [main]
+   pull_request:
+   workflow_dispatch:
 jobs:
   saludo:
     runs-on: ubuntu-latest
