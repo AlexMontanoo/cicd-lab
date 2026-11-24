@@ -6,6 +6,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+env:
+  IMAGE_NAME: mi-imagen
+
 jobs:
   saludo:
     runs-on: ubuntu-latest
@@ -19,14 +22,15 @@ jobs:
       - name: Decir hola
         run: echo "Hola desde github"
 
-      - name: Leer archivo que no existe
-        run: cat d.txt
+      - name: Correr pruebas
+        run: python3 test_suma.py
 
-      - name: Contruir la imagen
-        run: docker build -t mi-imagen .
+      - name: Construir la imagen
+        run: docker build -t ${{ env.IMAGE_NAME }} .
 
       - name: Correr el contenedor
-        run: docker run mi-imagen
+        run: docker run ${{ env.IMAGE_NAME }}
+
       - name: Iniciar sesion en Docker Hub
         uses: docker/login-action@v3
         with:
@@ -34,10 +38,15 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Ponerle nombre de Docker Hub
-        run: docker tag mi-imagen ${{ secrets.DOCKERHUB_USERNAME }}/mi-imagen:latest
+        run: docker tag ${{ env.IMAGE_NAME }} ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
 
       - name: Subir la imagen
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/mi-imagen:latest
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/
+      - name: Iniciar sesion en Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Correr pruebas
-        run: python3 test_suma.py
+      - name: Ponerle nombre de Docker Hub
+        run: docker 
