@@ -21,6 +21,10 @@ jobs:
 
   publicar:
     needs: pruebas
+    publicar:
+      needs: pruebas
+      if: github.ref == 'refs/heads/main'
+      runs-on: ubuntu-latest
     runs-on: ubuntu-latest
     steps:
       - name: Traer el codigo
